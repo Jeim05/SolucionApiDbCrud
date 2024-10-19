@@ -42,5 +42,91 @@ namespace CapaDatos
             }
             return lista;
         }
+
+
+        public async Task<bool> Crear(Empleado objeto)
+        {
+            bool respuesta = true;
+
+            using (var conexion = new SqlConnection(conexiones.CadenaSQL))
+            {
+                await conexion.OpenAsync();
+                SqlCommand cmd = new SqlCommand("sp_crearEmpleado", conexion);
+                cmd.Parameters.AddWithValue("@NombreCompleto",objeto.NombreCompleto);
+                cmd.Parameters.AddWithValue("@IdDepartamento", objeto.Departamento!.IdDepartamento);
+                cmd.Parameters.AddWithValue("@Sueldo", objeto.Sueldo);
+                cmd.Parameters.AddWithValue("@FechaContrato", objeto.FechaContrato);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                try
+                {
+                    await conexion.OpenAsync();
+                    respuesta = await cmd.ExecuteNonQueryAsync() > 0 ? true : false;
+                }
+                catch (Exception ex)
+                {
+
+                    respuesta = false;
+                }
+                
+            }
+            return respuesta;
+        }
+
+        public async Task<bool> Editar(Empleado objeto)
+        {
+            bool respuesta = true;
+
+            using (var conexion = new SqlConnection(conexiones.CadenaSQL))
+            {
+                await conexion.OpenAsync();
+                SqlCommand cmd = new SqlCommand("sp_editarEmpleado", conexion);
+                cmd.Parameters.AddWithValue("@IdEmpleado", objeto.IdEmpleado);
+                cmd.Parameters.AddWithValue("@NombreCompleto", objeto.NombreCompleto);
+                cmd.Parameters.AddWithValue("@IdDepartamento", objeto.Departamento!.IdDepartamento);
+                cmd.Parameters.AddWithValue("@Sueldo", objeto.Sueldo);
+                cmd.Parameters.AddWithValue("@FechaContrato", objeto.FechaContrato);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                try
+                {
+                    await conexion.OpenAsync();
+                    respuesta = await cmd.ExecuteNonQueryAsync() > 0 ? true : false;
+                }
+                catch
+                {
+
+                    respuesta = false;
+                }
+
+            }
+            return respuesta;
+        }
+
+        public async Task<bool> Eliminar(int id)
+        {
+            bool respuesta = true;
+
+            using (var conexion = new SqlConnection(conexiones.CadenaSQL))
+            {
+                await conexion.OpenAsync();
+                SqlCommand cmd = new SqlCommand("sp_eliminarEmpleado", conexion);
+                cmd.Parameters.AddWithValue("@IdEmpleado",id);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                try
+                {
+                    await conexion.OpenAsync();
+                    respuesta = await cmd.ExecuteNonQueryAsync() > 0 ? true : false;
+                }
+                catch
+                {
+
+                    respuesta = false;
+                }
+
+            }
+            return respuesta;
+        }
     }
 }
