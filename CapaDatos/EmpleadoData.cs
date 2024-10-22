@@ -81,7 +81,6 @@ namespace CapaDatos
 
             using (var conexion = new SqlConnection(conexiones.CadenaSQL))
             {
-                await conexion.OpenAsync();
                 SqlCommand cmd = new SqlCommand("sp_editarEmpleado", conexion);
                 cmd.Parameters.AddWithValue("@IdEmpleado", objeto.IdEmpleado);
                 cmd.Parameters.AddWithValue("@NombreCompleto", objeto.NombreCompleto);
@@ -97,11 +96,10 @@ namespace CapaDatos
                 }
                 catch
                 {
-
                     respuesta = false;
                 }
-
             }
+
             return respuesta;
         }
 
@@ -111,7 +109,6 @@ namespace CapaDatos
 
             using (var conexion = new SqlConnection(conexiones.CadenaSQL))
             {
-                await conexion.OpenAsync();
                 SqlCommand cmd = new SqlCommand("sp_eliminarEmpleado", conexion);
                 cmd.Parameters.AddWithValue("@IdEmpleado",id);
                 cmd.CommandType = CommandType.StoredProcedure;
