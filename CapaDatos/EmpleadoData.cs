@@ -47,6 +47,40 @@ namespace CapaDatos
             return lista;
         }
 
+        public async Task<Empleado> Obtener(int id)
+        {
+            Empleado empleado = new Empleado();
+
+            using (var conexion = new SqlConnection(conexiones.CadenaSQL))
+            {
+                await conexion.OpenAsync();
+                SqlCommand cmd = new SqlCommand("sp_obtenerEmpleado", conexion);
+                cmd.Parameters.AddWithValue("@IdEmpleado", id);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    while (reader.Read())
+                    {
+                        empleado = new Empleado
+                        {
+                            IdEmpleado = Convert.ToInt32(reader["IdEmpleado"]),
+                            NombreCompleto = reader["NombreCompleto"].ToString(),
+                            Sueldo = Convert.ToDecimal(reader["Sueldo"]),
+                            FechaContrato = reader["FechaContrato"].ToString(),
+                            Departamento = new Departamento
+                            {
+                                IdDepartamento = Convert.ToInt32(reader["IdDepartamento"]),
+                                Nombre = reader["Nombre"].ToString()
+                            }
+                        };
+                    }
+                }
+            }
+
+            return empleado;
+        }
+
 
         public async Task<bool> Crear(Empleado objeto)
         {

@@ -24,6 +24,13 @@ namespace CapaWebApi.Controllers
             return StatusCode(StatusCodes.Status200OK, empleados);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Obtener(int id)
+        {
+            Empleado empleado = await _empleadoData.Obtener(id);
+            return StatusCode(StatusCodes.Status200OK, empleado);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Crear([FromBody] Empleado objeto)
         {
