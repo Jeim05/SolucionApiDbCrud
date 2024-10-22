@@ -54,9 +54,8 @@ namespace CapaDatos
 
             using (var conexion = new SqlConnection(conexiones.CadenaSQL))
             {
-                await conexion.OpenAsync();
                 SqlCommand cmd = new SqlCommand("sp_crearEmpleado", conexion);
-                cmd.Parameters.AddWithValue("@NombreCompleto",objeto.NombreCompleto);
+                cmd.Parameters.AddWithValue("@NombreCompleto", objeto.NombreCompleto);
                 cmd.Parameters.AddWithValue("@IdDepartamento", objeto.Departamento!.IdDepartamento);
                 cmd.Parameters.AddWithValue("@Sueldo", objeto.Sueldo);
                 cmd.Parameters.AddWithValue("@FechaContrato", objeto.FechaContrato);
@@ -67,13 +66,12 @@ namespace CapaDatos
                     await conexion.OpenAsync();
                     respuesta = await cmd.ExecuteNonQueryAsync() > 0 ? true : false;
                 }
-                catch (Exception ex)
+                catch
                 {
-
                     respuesta = false;
                 }
-                
             }
+
             return respuesta;
         }
 
