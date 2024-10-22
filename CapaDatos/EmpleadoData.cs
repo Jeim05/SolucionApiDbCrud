@@ -24,15 +24,18 @@ namespace CapaDatos
                 SqlCommand cmd = new SqlCommand("sp_listaEmpleados", conexion);
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                using (var reader = await cmd.ExecuteReaderAsync()) {
-                    while (reader.Read()) {
+                using (var reader = await cmd.ExecuteReaderAsync())
+                {
+                    while (reader.Read())
+                    {
                         lista.Add(new Empleado
                         {
                             IdEmpleado = Convert.ToInt32(reader["IdEmpleado"]),
                             NombreCompleto = reader["NombreCompleto"].ToString(),
                             Sueldo = Convert.ToDecimal(reader["Sueldo"]),
                             FechaContrato = reader["FechaContrato"].ToString(),
-                            Departamento = new Departamento {
+                            Departamento = new Departamento
+                            {
                                 IdDepartamento = Convert.ToInt32(reader["IdDepartamento"]),
                                 Nombre = reader["Nombre"].ToString()
                             }
@@ -40,6 +43,7 @@ namespace CapaDatos
                     }
                 }
             }
+
             return lista;
         }
 
