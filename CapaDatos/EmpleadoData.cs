@@ -32,9 +32,9 @@ namespace CapaDatos
                             NombreCompleto = reader["NombreCompleto"].ToString(),
                             Sueldo = Convert.ToDecimal(reader["Sueldo"]),
                             FechaContrato = reader["FechaContrato"].ToString(),
-                            Departamento = new Departamento { 
-                             IdDepartamento = Convert.ToInt32(reader["IdDepartamento"]),
-                             Nombre = reader["Nombre"].ToString()
+                            Departamento = new Departamento {
+                                IdDepartamento = Convert.ToInt32(reader["IdDepartamento"]),
+                                Nombre = reader["Nombre"].ToString()
                             }
                         });
                     }
