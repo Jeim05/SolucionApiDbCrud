@@ -17,6 +17,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<ConnectionStrings>(builder.Configuration.GetSection("ConnectionStrings"));
 builder.Services.AddSingleton<EmpleadoData>();
+builder.Services.AddSingleton<DepartamentoData>();
 
 var app = builder.Build();
 
