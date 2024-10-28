@@ -23,6 +23,13 @@ namespace CapaWebApi.Controllers
             return StatusCode(StatusCodes.Status200OK, departamentos);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Obtener(int id)
+        {
+            Departamento departamento = await _departamentoData.Obtener(id);
+            return StatusCode(StatusCodes.Status200OK, departamento);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Crear([FromBody] Departamento objeto)
         {
