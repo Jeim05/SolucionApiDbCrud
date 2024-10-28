@@ -74,7 +74,7 @@ namespace CapaDatos
             using (var conexion = new SqlConnection(conexiones.CadenaSQL))
             {
                 SqlCommand cmd = new SqlCommand("sp_crearDepartamento", conexion);
-                cmd.Parameters.AddWithValue("@Nombre", objeto.Nombre);
+                cmd.Parameters.AddWithValue("@NombreDepartamento", objeto.Nombre);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 try
@@ -99,7 +99,7 @@ namespace CapaDatos
             {
                 SqlCommand cmd = new SqlCommand("sp_editarDepartamento", conexion);
                 cmd.Parameters.AddWithValue("@IdDepartamento", objeto.IdDepartamento);
-                cmd.Parameters.AddWithValue("@Nombre", objeto.Nombre);
+                cmd.Parameters.AddWithValue("@NombreDepartamento", objeto.Nombre);
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 try
