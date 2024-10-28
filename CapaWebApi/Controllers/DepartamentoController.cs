@@ -22,5 +22,26 @@ namespace CapaWebApi.Controllers
             List<Departamento> departamentos = await _departamentoData.Lista();
             return StatusCode(StatusCodes.Status200OK, departamentos);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Crear([FromBody] Departamento objeto)
+        {
+            bool respuesta = await _departamentoData.Crear(objeto);
+            return StatusCode(StatusCodes.Status200OK, new { isSuccess = respuesta });
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Editar([FromBody] Departamento objeto)
+        {
+            bool respuesta = await _departamentoData.Editar(objeto);
+            return StatusCode(StatusCodes.Status200OK, new { isSuccess = respuesta });
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Eliminar(int id)
+        {
+            bool respuesta = await _departamentoData.Eliminar(id);
+            return StatusCode(StatusCodes.Status200OK, new { isSuccess = respuesta });
+        }
     }
 }
