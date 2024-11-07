@@ -3,8 +3,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options=>
 {
-    options.AddPolicy("AllowSpecificOrigin",
-        policy => policy.WithOrigins("http://localhost:3000").
+    options.AddPolicy("AllowSpecificOrigin", 
+        policy => policy.AllowAnyOrigin().
                    AllowAnyMethod().
                    AllowAnyHeader());
 });
@@ -22,11 +22,14 @@ builder.Services.AddSingleton<DepartamentoData>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseCors("AllowSpecificOrigin");
 
